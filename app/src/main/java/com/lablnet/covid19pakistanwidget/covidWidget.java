@@ -12,6 +12,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import org.json.JSONException;
+
+import java.io.IOException;
+
 
 public class covidWidget extends AppWidgetProvider {
 
@@ -24,7 +28,14 @@ public class covidWidget extends AppWidgetProvider {
         Thread t = new Thread((new Runnable() {
             @Override
             public void run() {
-                final String dataToShow =DataReader.GetData();
+                String dataToShow = "Unable to connect to server, it will retry after 15 minutes";
+                try {
+                    dataToShow = DataReader.GetData();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 views.setTextViewText(R.id.appwidgettext, dataToShow);
                 appWidgetManager.updateAppWidget(appWidgetId, views);
             }

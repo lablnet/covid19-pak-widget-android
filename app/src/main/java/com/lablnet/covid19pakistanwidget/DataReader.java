@@ -1,70 +1,35 @@
 package com.lablnet.covid19pakistanwidget;
 
 import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.io.IOException;
+import org.json.JSONException;
 
 public class DataReader {
     public DataReader()
     {
-
+        // nothing goes here.
     }
 
-    public static String GetData()
-    {
-        String result = "";
-        try{
-            URL url = new URL("https://www.covid19.earth/data/summery.js");
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.connect();
+    public static String GetData() throws IOException, JSONException {
+        try {
+            // get the data.
+            JSONObject json = DataToJson.GetData("https://www.covid19.earth/data/app.json");
 
-            BufferedReader br = null;
-            if (100 <= conn.getResponseCode() && conn.getResponseCode() <= 399) {
-                br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            } else {
-                br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-            }
+            String date = (String) json.get("datetime");
+            // convert above datetime to formatted MM/DD/YYYY HH:MM:SS
+            String formattedDate = date.substring(0, 10) + " " + date.substring(11, 16);
 
-            String str = null;
-
-            while((str = br.readLine()) != null)
-            {
-                result += str;
-            }
+            return "Updated:\n" +formattedDate+ "\n"+
+                    "\nTests " +json.get("last_tests")+
+                    "\nCases: " +json.get("last_cases")+
+                    "\nRecovered: " +json.get("last_recovered")+
+                    "\nDeaths: " +json.get("last_deaths")+ "\n\n"+
+                    "\nThese are last 24 hour stats.";
         }
         catch(Exception ex)
         {
             ex.printStackTrace();
-        }
-
-        if(result.equals(""))
-            return "Result Not Found!";
-
-        result = result.split("=")[1].trim();
-
-        try{
-
-            JSONObject obj = new JSONObject(result);
-            String resultToShow = "";
-
-            JSONObject last = obj.getJSONObject("98");
-
-            resultToShow = "Updated: " +last.getString("datetime")+
-                    "\nTests " +last.getString("last_tests")+
-                    "\nCases: " +last.getString("last_cases")+
-                    "\nRecovered: " +last.getString("last_recovered")+
-                    "\nDeaths: " +last.getString("last_deaths")+
-                    "\nThe data Show Last 24 hour stat.";
-
-            return resultToShow;
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-            return "Error";
+            return "Unable to connect to server, it will retry after 15 minutes.";
         }
     }
 }
