@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="344dp"
+        android:layout_height="690dp"
+        android:text="
+COVID19 Widget Pakistan\n
+   The data updates every 15 minutes, if you unsure how to add widget follow the following steps:\n
+   1. Goto your home screen.\n
+   2. Hold and tap it until you see the add Widget button.\n
+   3. Click it and find covid19 widget add it.\n
+   4. there we go.\n
+   If you're using (Xiaomi, Redmi, Letv, Oppo, Asus...) then goto Settings -> Apps -> Covid19 Pakistan Widget
+   Turn on Autostart. then add widget.\n
+   Thank, if you have any suggestion or feedback do not forget to write to our email \n
+   mumerfarooqlablnet01@gmail.com \n
+
+
+
+        "
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:flow_horizontalAlign="center"
+        app:flow_verticalAlign="center"
+        tools:layout_editor_absoluteX="37dp"
+        tools:layout_editor_absoluteY="26dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,7 +3,7 @@
     android:initialKeyguardLayout="@layout/covid_widget"
     android:initialLayout="@layout/covid_widget"
     android:minWidth="250dp"
-    android:minHeight="220dp"
+    android:minHeight="250dp"
     android:previewImage="@drawable/example_appwidget_preview"
     android:resizeMode="horizontal"
     android:updatePeriodMillis="900000"
